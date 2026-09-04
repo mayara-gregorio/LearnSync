@@ -1,6 +1,22 @@
+import { UserButton } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
-export default function DashboardTeacher() {
+export default async function DashboardTeacher() {
+
+  await auth.protect()
+
+  await auth.protect()
+  const { sessionClaims } = await auth();
+
+  if(sessionClaims?.metadata.role !== 'teacher'){
+    return redirect("/student");
+  }
+  
   return (
-    <h1>Dashboard Professor</h1>
+    <>
+      <UserButton/>
+      <h1>Dashboard Professor</h1>
+    </>
   );
 }

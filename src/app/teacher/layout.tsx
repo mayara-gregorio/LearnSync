@@ -1,5 +1,9 @@
+import { auth } from "@clerk/nextjs/server";
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  
+  await auth.protect()
+  
   return (
     <>{children}</>
   );
